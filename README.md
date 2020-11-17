@@ -1,5 +1,7 @@
-# Front-End Code Test
+# monkii-fed
 A brief set of exercises to demonstrate your experience and capabilities as a Frontend developer.
+
+Product Listing using Vue.js and Tailwind.css
 
 
 ## Project setup
