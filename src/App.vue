@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import AppHeader from "./components/AppHeader.vue";
-import AppCard from "./components/AppCard.vue";
+import AppHeader from "@/components/AppHeader.vue";
+import AppCard from "@/components/AppCard.vue";
 import ProductService from "@/services/ProductService.js";
 
 export default {
