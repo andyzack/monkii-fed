@@ -17,10 +17,12 @@
                 >Order by:
               </label>
               <select
-                v-model="selectedPrice"
                 id="price"
+                v-model="price"
+                @change="handlePrice(price)"
                 class="form-select pr-2 border border-gray-300 bg-white shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out text-sm sm:leading-5"
               >
+                <option value="">Price - Order by value</option>
                 <option value="asc">Price - Low to High</option>
                 <option value="desc">Price - High to Low</option>
               </select>
@@ -30,8 +32,9 @@
                 >Filter by size:
               </label>
               <select
-                v-model="selectedSize"
                 id="size"
+                v-model.number="size"
+                @change="handleSize(size)"
                 class="form-select pr-2 border border-gray-300 bg-white shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out text-sm sm:leading-5"
               >
                 <option value="">All</option>
@@ -46,7 +49,7 @@
 
         <!-- cards list -->
         <div class="border-gray-400 border-2">
-          <div v-if="products.length > 0" class="flex flex-wrap p-4">
+          <div v-if="products.length" class="flex flex-wrap p-4">
             <AppCard
               v-for="(product, key) in products"
               :key="key"
@@ -78,27 +81,41 @@ export default {
   data() {
     return {
       products: [],
-      selectSize: "XL",
-      selectPrice: "desc",
-      selectedSize: "XL",
-      selectedPrice: "desc"
+      size: "",
+      price: ""
     };
   },
   created() {
     ProductService.getProducts()
       .then(response => {
         this.products = response.data;
+        this.prodsArr = [...this.products];
       })
       .catch(error => {
         console.log(error);
       });
   },
-  method: {
-    selectPrice() {
-      this.$emit("change", this.selectedPrice);
+  methods: {
+    handlePrice(obj) {
+      if (obj == "desc") {
+        // eslint-disable-next-line
+        this.products = this.prodsArr.sort((a, b) => (a.price > b.price ? -1 : 1));
+      } else if (obj == "asc") {
+        // eslint-disable-next-line
+        this.products = this.prodsArr.sort((a, b) => (a.price < b.price ? -1 : 1));
+      } else {
+        // eslint-disable-next-line
+        this.products = this.prodsArr.sort((a, b) => (a.id < b.id ? -1 : 1));
+      }
     },
-    selectSize() {
-      this.$emit("change", this.selectedSize);
+    handleSize(obj) {
+      if (obj) {
+        this.products = this.prodsArr.filter(product =>
+          product.sizes.includes(obj)
+        );
+      } else {
+        this.products = this.prodsArr;
+      }
     }
   }
 };
