@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full sm:w-1/2 lg:w-1/3 p-4">
+  <div class="w-full sm:w-1/2 lg:w-1/3 p-2 md:p-4">
     <div
       class="flex flex-col justify-between bg-white h-full rounded overflow-hidden shadow-sm relative min-h-128 transition duration-500 ease-in-out border-2 border-white hover:border-opacity-25 hover:border-red-600 hover:text-red-600 cursor-pointer"
     >
@@ -7,7 +7,7 @@
         <component v-bind:is="component" fill="#e86d6d" class="w-10 h-auto" @click="myFavourite" :class="{'active': isActive}" />
       </div>
       <div class="px-6 py-4">
-        <img :src="image" :alt="name" class="h-48 ml-auto mr-auto" />
+        <img :src="image" :alt="name" class=" h-32 md:h-48 ml-auto mr-auto" />
       </div>
       <div class="px-6 py-4">
         <div class="font-semibold text-lg leading-tight mb-2">{{ name }}</div>
