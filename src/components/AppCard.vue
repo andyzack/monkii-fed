@@ -24,11 +24,26 @@ import IconFavourited from "@/assets/images/favourited.svg?inline";
 export default {
   name: "AppCard",
   props: {
-    id: Number,
-    name: String,
-    image: String,
-    price: Number,
-    sizes: Array
+    id: {
+      type: Number,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      default: "@/assets/images/products/placeholder.png"
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    sizes: {
+      type: Array,
+      required: true
+    }
   },
   components: {
     IconFavourite,
