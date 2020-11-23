@@ -22,7 +22,7 @@
                 @change="handlePrice(price)"
                 class="form-select pr-2 border border-gray-300 bg-white shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out text-sm sm:leading-5 w-48 sm:w-auto"
               >
-                <option value="">Price - Order by value</option>
+                <option value="">Recommended - Popularity</option>
                 <option value="asc">Price - Low to High</option>
                 <option value="desc">Price - High to Low</option>
               </select>
@@ -60,8 +60,8 @@
               :sizes="product.sizes"
             />
           </div>
-          <div v-else class="p-16 text-center">
-            <div class="lds-dual-ring inline-block w-32 h-32 mr-auto ml-auto"></div>
+          <div v-else class="flex flex-wrap justify-between items-center w-full py-40">
+            <div class="lds-dual-ring mr-auto ml-auto"></div>
           </div>
         </div>
       </div>
@@ -101,13 +101,13 @@ export default {
     handlePrice(obj) {
       if (obj == "desc") {
         // eslint-disable-next-line
-        this.products = this.prodsArr.sort((a, b) => (a.price > b.price ? -1 : 1));
+        this.products = this.products.sort((a, b) => (a.price > b.price ? -1 : 1));
       } else if (obj == "asc") {
         // eslint-disable-next-line
-        this.products = this.prodsArr.sort((a, b) => (a.price < b.price ? -1 : 1));
+        this.products = this.products.sort((a, b) => (a.price < b.price ? -1 : 1));
       } else {
         // eslint-disable-next-line
-        this.products = this.prodsArr.sort((a, b) => (a.id < b.id ? -1 : 1));
+        this.products = this.products.sort((a, b) => (a.id < b.id ? -1 : 1));
       }
     },
     handleSize(obj) {
