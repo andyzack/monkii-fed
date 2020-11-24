@@ -2,7 +2,7 @@
   <div id="app" class="w-full h-full">
     <div class="ml-auto mr-auto max-w-5xl h-full bg-gray-100">
       <!-- HEADER COMPONENT -->
-      <AppHeader />
+      <AppHeader :favourites="favourites" />
 
       <!-- CARDS COMPONENT -->
       <div class="px-4 py-5 md:px-8 md:py-10">
@@ -11,9 +11,14 @@
         <!-- cards filter -->
         <div class="flex flex-wrap justify-between items-center pt-2 pb-4">
           <div v-if="products.length">{{ products.length }} Items</div>
-          <div v-if="products.length" class="flex flex-wrap justify-between items-center -mx-4">
+          <div
+            v-if="products.length"
+            class="flex flex-wrap justify-between items-center -mx-4"
+          >
             <div class="flex flex-wrap justify-between items-center px-4 my-2">
-              <label for="price" class="text-sm font-medium leading-5 pr-1 w-24 sm:w-auto"
+              <label
+                for="price"
+                class="text-sm font-medium leading-5 pr-1 w-24 sm:w-auto"
                 >Order by:
               </label>
               <select
@@ -28,7 +33,9 @@
               </select>
             </div>
             <div class="flex flex-wrap justify-between items-center px-4 my-2">
-              <label for="size" class="text-sm font-medium leading-5 pr-1 w-24 sm:w-auto"
+              <label
+                for="size"
+                class="text-sm font-medium leading-5 pr-1 w-24 sm:w-auto"
                 >Filter by size:
               </label>
               <select
@@ -58,9 +65,13 @@
               :image="require('@/assets/images/products/' + product.image)"
               :price="product.price"
               :sizes="product.sizes"
+              @update-favourites="updateFav"
             />
           </div>
-          <div v-else class="flex flex-wrap justify-between items-center w-full py-40">
+          <div
+            v-else
+            class="flex flex-wrap justify-between items-center w-full py-40"
+          >
             <div class="lds-dual-ring mr-auto ml-auto"></div>
           </div>
         </div>
@@ -84,7 +95,8 @@ export default {
     return {
       products: [],
       size: "",
-      price: ""
+      price: "",
+      favourites: []
     };
   },
   created() {
@@ -101,10 +113,14 @@ export default {
     handlePrice(obj) {
       if (obj == "desc") {
         // eslint-disable-next-line
-        this.products = this.products.sort((a, b) => (a.price > b.price ? -1 : 1));
+        this.products = this.products.sort((a, b) =>
+          a.price > b.price ? -1 : 1
+        );
       } else if (obj == "asc") {
         // eslint-disable-next-line
-        this.products = this.products.sort((a, b) => (a.price < b.price ? -1 : 1));
+        this.products = this.products.sort((a, b) =>
+          a.price < b.price ? -1 : 1
+        );
       } else {
         // eslint-disable-next-line
         this.products = this.products.sort((a, b) => (a.id < b.id ? -1 : 1));
@@ -117,6 +133,13 @@ export default {
         );
       } else {
         this.products = this.prodsArr;
+      }
+    },
+    updateFav(obj) {
+      if (obj.type === "del") {
+        this.favourites = this.favourites.filter(ele => ele != obj.id);
+      } else {
+        this.favourites.push(obj.id);
       }
     }
   }
