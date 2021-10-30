@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/monkii-fed/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/andyzack-fed/" : "/",
 
   chainWebpack: config => {
     const svgRule = config.module.rule("svg");
